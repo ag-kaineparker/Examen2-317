@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/12/2023 12:15:47 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-DI95B5D"
+  DTS:CreatorName="DESKTOP-DI95B5D\Administrador"
+  DTS:DTSID="{5A7C5E96-61F0-4E2E-955E-D7CA57EA5856}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5270.0"
+  DTS:LocaleID="22538"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{9487ED73-4E4C-4651-A57B-83A36769CCEC}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-DI95B5D\MSSQLSERVER02.Adventure2022-Replica1]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{6F981241-9D1B-415E-9448-A4A51ECD0140}"
+      DTS:ObjectName="DESKTOP-DI95B5D\MSSQLSERVER02.Adventure2022-Replica1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-DI95B5D\MSSQLSERVER02;Initial Catalog=Adventure2022-Replica1;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{6F981241-9D1B-415E-9448-A4A51ECD0140}DESKTOP-DI95B5D\MSSQLSERVER02.Adventure2022-Replica1;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-DI95B5D\MSSQLSERVER02.AdventureWorks2022]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{E4660B31-86B7-4F45-8202-516CE5B9261C}"
+      DTS:ObjectName="DESKTOP-DI95B5D\MSSQLSERVER02.AdventureWorks2022">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-DI95B5D\MSSQLSERVER02;Initial Catalog=AdventureWorks2022;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{E4660B31-86B7-4F45-8202-516CE5B9261C}DESKTOP-DI95B5D\MSSQLSERVER02.AdventureWorks2022;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Actualizar datos de la tabla Culture en Replica1"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{64460E75-889C-48CC-96B0-8BAD6EDC3254}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Actualizar datos de la tabla Culture en Replica1"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6F981241-9D1B-415E-9448-A4A51ECD0140}"
+          SQLTask:SqlStatementSource="-- Sincronizar datos para Production.Culture&#xA;USE [Adventure2022-Replica1];&#xA;&#xA;INSERT INTO [Adventure2022-Replica1].Production.Culture (CultureID, Name, ModifiedDate)&#xA;SELECT CultureID, Name, ModifiedDate&#xA;FROM AdventureWorks2022.Production.Culture AS src&#xA;WHERE NOT EXISTS (&#xA;    SELECT 1&#xA;    FROM [Adventure2022-Replica1].Production.Culture AS dest&#xA;    WHERE dest.CultureID = src.CultureID COLLATE SQL_Latin1_General_CP1_CI_AS&#xA;);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Actualizar datos de la tabla Culture en Replica1 1"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{48cde91b-3343-44be-8ebd-7334b9124cd9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Actualizar datos de la tabla Culture en Replica1 1"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6F981241-9D1B-415E-9448-A4A51ECD0140}"
+          SQLTask:SqlStatementSource="-- Sincronizar datos para Production.Location&#xA;USE [Adventure2022-Replica1];&#xA;&#xA;INSERT INTO [Adventure2022-Replica1].Production.Location (LocationID, Name, CostRate, Availability, ModifiedDate)&#xA;SELECT LocationID, Name, CostRate, Availability, ModifiedDate&#xA;FROM AdventureWorks2022.Production.Location AS src&#xA;WHERE NOT EXISTS (&#xA;    SELECT 1&#xA;    FROM [Adventure2022-Replica1].Production.Location AS dest&#xA;    WHERE dest.LocationID = src.LocationID&#xA;);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\No existe la base de datos"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{48bea14c-c4bd-4e6f-8ba6-0b1b12f54fb3}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="No existe la base de datos"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6F981241-9D1B-415E-9448-A4A51ECD0140}"
+          SQLTask:SqlStatementSource="USE [Adventure2022-Replica1];&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Usar Adventure Replica 1"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{d15876cf-74fc-4413-b526-3c054b96bfe1}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Usar Adventure Replica 1"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6F981241-9D1B-415E-9448-A4A51ECD0140}"
+          SQLTask:SqlStatementSource="USE [Adventure2022-Replica1];&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{16085285-68BF-47C1-8E99-409C1CA2A72C}"
+      DTS:From="Package\Usar Adventure Replica 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Actualizar datos de la tabla Culture en Replica1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{1B4C99B2-6CFA-49F3-B6B3-0924F37F76C0}"
+      DTS:From="Package\Usar Adventure Replica 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 1"
+      DTS:To="Package\No existe la base de datos"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{FA325D11-C811-4425-B0FF-06C4C92ABFAF}"
+      DTS:From="Package\Actualizar datos de la tabla Culture en Replica1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 2"
+      DTS:To="Package\Actualizar datos de la tabla Culture en Replica1 1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="178,52"
+          Id="Package\Actualizar datos de la tabla Culture en Replica1"
+          TopLeft="333,249" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Usar Adventure Replica 1"
+          TopLeft="357,100" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="419.5,142">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,107"
+              Start="0,0"
+              End="0,99.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,99.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="208,42"
+          Id="Package\No existe la base de datos"
+          TopLeft="600,221" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 1]"
+          TopLeft="473,142">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="231,79"
+              Start="0,0"
+              End="231,71.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.027027027027" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.027027027027"
+                    Point2="0,32.027027027027"
+                    Point3="4,32.027027027027" />
+                  <mssgle:LineSegment
+                    End="227,32.027027027027" />
+                  <mssgle:CubicBezierSegment
+                    Point1="227,32.027027027027"
+                    Point2="231,32.027027027027"
+                    Point3="231,36.027027027027" />
+                  <mssgle:LineSegment
+                    End="231,71.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="103.97130859375,37.027027027027,23.0573828125,9.421875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="319,42"
+          Id="Package\Actualizar datos de la tabla Culture en Replica1 1"
+          TopLeft="265,374" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 2]"
+          TopLeft="423.25,301">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,73"
+              Start="0,0"
+              End="0,65.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,65.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
